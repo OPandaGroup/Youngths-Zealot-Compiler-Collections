@@ -9,17 +9,18 @@ echo [%time%]:复制完整代码 >> build.log
 echo [%time%]:开始编译 >> build.log
 del ..\build\build.log
 del ..\build\build.bat
-gcc ..\build\code\main.c -o ..\build\bin\mc.exe
+gcc -shared -fpic ./code/data.c -o ../build/lib/data.dll
+echo [%time%]:data.c >> build.log
+gcc -shared -fpic ./code/print.c -o ../build/lib/print.dll
+echo [%time%]:print.c >> build.log
+gcc ..\build\code\main.c ../build/lib/data.dll -o ..\build\bin\mc.exe
+echo [%time%]:main.c >> build.log
+gcc ..\build\code\macro.c ../build/lib/data.dll ../build/lib/print.dll -o ..\build\bin\macro.exe
+echo [%time%]:macro.c >> build.log
+gcc ..\build\code\versions.c -o ..\build\bin\version.exe
+echo [%time%]:versions.c >> build.log
+gcc ..\build\code\help.c -o ..\build\bin\help.exe
+echo [%time%]:help.c >> build.log
 rd /s /q ..\build\code
-echo [%time%]:end >> build.log
-:run
-set /p source=run(y/n)?
-if %source%==y (
-	..\build\bin\mc.exe
-) else if %source%==n (
-	echo [%time%]:exit >> build.log
-) else (
-	echo [%time%]:运行时错误 >> build.log
-    echo input error
-	goto run
-)
+echo [%time%]:完成编译 >> build.log
+echo [%time%]:完成编译

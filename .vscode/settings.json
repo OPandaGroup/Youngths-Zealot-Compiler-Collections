@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "data.h": "c",
+        "clocale": "c",
+        "print.h": "c",
+        "charconv": "c",
+        "format": "c",
+        "locale": "c",
+        "print": "c",
+        "xlocale": "c"
+    }
+}
