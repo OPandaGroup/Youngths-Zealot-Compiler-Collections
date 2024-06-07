@@ -22,5 +22,6 @@ echo [%time%]:versions.c >> build.log
 gcc ..\build\code\help.c -o ..\build\bin\help.exe
 echo [%time%]:help.c >> build.log
 rd /s /q ..\build\code
+xcopy "..\build\bin" ".\bin" /E /I /Y
 echo [%time%]:完成编译 >> build.log
 echo [%time%]:完成编译

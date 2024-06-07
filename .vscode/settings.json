@@ -7,6 +7,12 @@
         "format": "c",
         "locale": "c",
         "print": "c",
-        "xlocale": "c"
+        "xlocale": "c",
+        "initializer_list": "c",
+        "utility": "c",
+        "xstring": "c",
+        "xutility": "c",
+        "cstdio": "c",
+        "cmath": "c"
     }
 }

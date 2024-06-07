@@ -10,39 +10,31 @@ void define(char *str, int line, int len){
 }
 
 void macro_read(char *str){
-    bool string = false;
-    bool annotation = false;
-    int len = 0 ;
-    int an_len = 0;
+    string str_list = (string )malloc(sizeof(string));
+    int len = 0 ;  //string len 
     for(int i = 0; i < strlen(str); i++){
-        if(str[i] == '\n'){
-            //完成刷新
-            annotation = false;
-            an_len = 0;
-            string = false;
-            len++;
-            printf("clear");
-        }else if (str[i] == '/')
-        {
-            //完成注释判断
-            if(annotation){
-                continue;
-            }else{
-                annotation++;
-            }
-            if(annotation >= 2){
-                annotation = true;
-            }
-        }else if (str[i] == '"'||str[i] == 39)
-        {
-            //完成对字符串判断
-            string = !string;
-        }else if (str[i] == '#'){
-
-        }else{
-
+        switch (str[i]){
+            case '\n':
+                if (str_list[len-1])
+                {
+                    /* code */
+                }
+                
+                break;
+            case '/':
+                break;
+            case ' ':
+                str_list = (string)realloc(str_list,sizeof(str_list)-1);
+                break;
+            default:
+                str_list[len] = str[i] ;
+                break;
+        }
+        if(str[i] != ' '){
+            len ++;
         }
     }
+    return str_list;
 }
 
 int main(int argc, char *argv[]){    

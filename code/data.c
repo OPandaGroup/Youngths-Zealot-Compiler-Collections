@@ -11,8 +11,7 @@ _Bool stringcmp(const char *str1, char *str2,_Bool efficiency){
             }
         }
         return 1;
-    }else
-    {
+    }else{
         _Bool flag = 1;
         for (ull index = 0; index < strlen(str2); index++){
             if (str1[index]!=str2[index]){
@@ -61,7 +60,20 @@ char *erase(char *str,ull index,ull len){
     return string;
 }
 
-char *strcopy()
+char *strcopy(char *str, ull start, ull len){
+
+}
+
+string intToString(int num){
+    int len = log10((double)num) + 1;
+    char *str = malloc(len);
+    memset(str,0,sizeof(str));
+    for(int i = 0 ; i < len ; i++){
+        str[len-1-i]=(num%10)+'0';
+        num/=10;
+    }
+    return str ;
+}
 
 FILE *openfile(char *filename, char *mode) {
     FILE *file = fopen(filename, mode);
