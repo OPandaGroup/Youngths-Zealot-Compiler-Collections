@@ -14,7 +14,7 @@ typedef char * string;
 
 //data structure
 typedef struct stack{
-    int top;
+    int len;
     struct stack_node *top,*end;
 } stack;
 struct stack_node{
@@ -22,7 +22,8 @@ struct stack_node{
     struct stack_node *next;
 };
 //stack fun
-void 
+void new_stack(struct stack *stack);
+void push_stack(struct stack stack, string data);
 //string
 _Bool stringcmp(const char *str1, char *str2,_Bool efficiency); //efficiency
 ull stringsearch(char *str1, char *str2); 

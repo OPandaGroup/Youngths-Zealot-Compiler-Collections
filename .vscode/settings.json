@@ -13,6 +13,7 @@
         "xstring": "c",
         "xutility": "c",
         "cstdio": "c",
-        "cmath": "c"
+        "cmath": "c",
+        "math.h": "c"
     }
 }

@@ -1,5 +1,23 @@
 #include "./include/data.h"
 
+void new_stack(struct stack *stack){
+    stack->len = 0;
+    stack->top = NULL;  
+    stack->end = NULL;
+}
+
+void push_stack(struct stack stack, string data){
+    struct stack_node *node;
+    node->next = NULL;
+    node->data = data;
+    if(stack.len == 0){
+        stack.top = node;
+        stack.end = node;
+    }else{
+        
+    }
+}
+
 _Bool stringcmp(const char *str1, char *str2,_Bool efficiency){
     if(strlen(str1)!=strlen(str2)){
         return 0;
