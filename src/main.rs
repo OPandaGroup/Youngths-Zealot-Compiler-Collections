@@ -1,3 +1,5 @@
+use mlc::Application;
+
 fn main() {
-    println!("Hello, world!");
+    Application::default().run()
 }
