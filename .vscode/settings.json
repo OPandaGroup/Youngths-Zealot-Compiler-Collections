@@ -14,6 +14,8 @@
         "xutility": "c",
         "cstdio": "c",
         "cmath": "c",
-        "math.h": "c"
+        "math.h": "c",
+        "structure.h": "c",
+        "stdlib.h": "c"
     }
 }

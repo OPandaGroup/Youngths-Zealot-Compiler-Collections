@@ -1,8 +1,8 @@
 #ifndef DATA_H
 #define DATA_H
 
-#include <stdio.h>
 #include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #define true 1
@@ -12,18 +12,6 @@ typedef unsigned long long ull;
 typedef _Bool bool;
 typedef char * string;
 
-//data structure
-typedef struct stack{
-    int len;
-    struct stack_node *top,*end;
-} stack;
-struct stack_node{
-    string data;
-    struct stack_node *next;
-};
-//stack fun
-void new_stack(struct stack *stack);
-void push_stack(struct stack stack, string data);
 //string
 _Bool stringcmp(const char *str1, char *str2,_Bool efficiency); //efficiency
 ull stringsearch(char *str1, char *str2); 

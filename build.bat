@@ -9,11 +9,15 @@ echo [%time%]:复制完整代码 >> build.log
 echo [%time%]:开始编译 >> build.log
 del ..\build\build.log
 del ..\build\build.bat
-gcc -shared -fpic ./code/data.c -o ../build/lib/data.dll
+gcc -shared -fpic ../build/code/lib/structure.c -o ../build/lib/structure.dll
+echo [%time%]:structure.h.c >> build.log
+gcc -shared -fpic ../build/code/lib/data.c -o ../build/lib/data.dll
 echo [%time%]:data.c >> build.log
-gcc -shared -fpic ./code/print.c -o ../build/lib/print.dll
+gcc -shared -fpic ../build/code/lib/print.c -o ../build/lib/print.dll
 echo [%time%]:print.c >> build.log
-gcc ..\build\code\main.c ../build/lib/data.dll -o ..\build\bin\mc.exe
+gcc -shared -fpic ../build/code/lib/mc_lib64.c ../build/code/lib/structure.c -o ../build/lib/mc_lib64.dll
+echo [%time%]:mc_lib64.c >> build.log
+gcc ..\build\code\main.c ../build/lib/mc_lib64.dll -o ..\build\bin\mc.exe
 echo [%time%]:main.c >> build.log
 gcc ..\build\code\macro.c ../build/lib/data.dll ../build/lib/print.dll -o ..\build\bin\macro.exe
 echo [%time%]:macro.c >> build.log
@@ -23,5 +27,6 @@ gcc ..\build\code\help.c -o ..\build\bin\help.exe
 echo [%time%]:help.c >> build.log
 rd /s /q ..\build\code
 xcopy "..\build\bin" ".\bin" /E /I /Y
+xcopy "..\build\lib" ".\lib" /E /I /Y
 echo [%time%]:完成编译 >> build.log
-echo [%time%]:完成编译
+echo [%time%]:完成编译                       
