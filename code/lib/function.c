@@ -1,4 +1,4 @@
-#include "../include/data.h"
+#include "../include/function.h"
 
 _Bool stringcmp(const char *str1, char *str2,_Bool efficiency){
     if(strlen(str1)!=strlen(str2)){

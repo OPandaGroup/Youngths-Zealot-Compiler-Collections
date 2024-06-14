@@ -16,6 +16,8 @@
         "cmath": "c",
         "math.h": "c",
         "structure.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "stdio.h": "c",
+        "function.h": "c"
     }
 }

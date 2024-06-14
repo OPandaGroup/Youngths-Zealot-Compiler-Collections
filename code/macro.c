@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "./include/data.h"
+#include "./include/function.h"
 #include "./include/print.h"
 
 // 完成对define的宏定义
