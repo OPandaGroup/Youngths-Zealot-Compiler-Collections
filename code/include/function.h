@@ -16,7 +16,7 @@ typedef char * string;
 _Bool stringcmp(const char *str1, char *str2,_Bool efficiency); //efficiency
 ull stringsearch(char *str1, char *str2); 
 char *erase(char *str,ull index,ull len);
-char *strcopy(char *str, ull start, ull len);
+char *strappend(char *str, char *str2);
 //data conversion
 string intToString(int num);
 //file 

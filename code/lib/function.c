@@ -60,8 +60,16 @@ char *erase(char *str,ull index,ull len){
     return string;
 }
 
-char *strcopy(char *str, ull start, ull len){
-
+char *strappend(char *str, char *str2){
+    char *string = (char *)malloc(strlen(str)+strlen(str2)+1);
+    memset(string,0,strlen(str)+strlen(str2)+1);
+    for (int i = 0; i < strlen(str); i++){
+        string[i] = str[i];
+    }
+    for (int i = 0; i < strlen(str2); i++){
+        string[strlen(str)+i] = str2[i];
+    }
+    return string ;
 }
 
 string intToString(int num){

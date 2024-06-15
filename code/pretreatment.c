@@ -6,7 +6,7 @@
 
 int main(int argc, char const *argv[])
 {
-	if (argc!=2){
+	if (argc!=3){
 		printError("preconditioning", "The preprocessed file name is not entered", "There was a system call error, which may be caused by your input error or a system error. If you did not operate it yourself, please update to the latest version, which may have fixed this bug. If you are already using the latest version, please report the issue at http://xn--m7rp6drx8ckejqgcze.nndx.eu.org.");
 		return -1;
 	}
@@ -18,6 +18,27 @@ int main(int argc, char const *argv[])
 		return -1;
 	}
 	filedata = readfile(file, fileSize(file));
+	//删除多余的空格
+	bool string = false ; 
+	bool ch = false ;
+	for (int i = 0; i < fileSize(file); i++){
+		if (filedata[i]=='"'){
+			string = !string ;
+		}else if (filedata[i]==39){
+			ch = !ch ;
+		}else{
+			if (filedata[i]==' ' && !string && !ch){
+				filedata[i] = '0';
+				printf_s("is space");
+			}
+		}
+	}
+	printf("%s",erase("hello",0,1));
+	erase(filedata, 0, 1);
+	closefile(file);
 	printf("%s", filedata);
+	FILE *end = openfile(argv[2], "w");
+	writetofile(end, filedata);
+	closefile(end);
 	return 0;
 }
