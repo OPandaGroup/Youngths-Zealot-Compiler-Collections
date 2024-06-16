@@ -66,4 +66,19 @@ void append_dirt(struct dirt *dirt, string key, string value);
 void remove_dirt_key(struct dirt *dirt, string key);
 bool find_dirt_key(struct dirt *dirt, string key);
 void print_dirt(struct dirt *dirt);
+/*The following code is the tree definition, 
+the struct and function definition*/
+typedef struct tree{
+    int child_num;
+    struct tree *parent;
+    struct tree **child;
+    void **add_data;
+    int data_num;
+    string data;
+}tree;
+/*function definition of tree*/
+struct tree *new_tree(string data, struct tree *parent);
+void append_tree(struct tree *tree, string data);
+void print_tree(struct tree *tree, int level);
+void add_tree_data(struct tree *tree, void *data);
 #endif

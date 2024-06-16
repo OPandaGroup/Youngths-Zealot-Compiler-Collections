@@ -21,19 +21,21 @@ int main(int argc, char const *argv[])
 	//删除多余的空格
 	bool string = false ; 
 	bool ch = false ;
-	for (int i = 0; i < fileSize(file); i++){
+	int fileSize = strlen(filedata);
+	for (int i = 0; i < fileSize; i++){
 		if (filedata[i]=='"'){
 			string = !string ;
 		}else if (filedata[i]==39){
 			ch = !ch ;
 		}else{
-			if (filedata[i]==' ' && !string && !ch){
+			if ((filedata[i]==' ' || filedata[i]=='\t') && filedata[i-1]==' ' && !string && !ch){
 				filedata[i] = '0';
-				printf_s("is space");
+				filedata = erase(filedata, i, 1);
+				fileSize--;
 			}
 		}
 	}
-	printf("%s",erase("hello",0,1));
+	filedata[fileSize] = '\0';
 	erase(filedata, 0, 1);
 	closefile(file);
 	printf("%s", filedata);

@@ -182,3 +182,38 @@ void print_dirt(struct dirt *dirt){
     printf("\b}");
     return ;
 }
+
+//function of tree
+struct tree *new_tree(string data, struct tree *parent){
+    struct tree *tree = (struct tree *)malloc(sizeof(struct tree));
+    tree->child_num = 0;
+    tree->data = data;
+    tree->child = malloc(sizeof(struct tree *)*1);
+    tree->add_data = malloc(sizeof(void *)*1);
+    tree->parent = parent;
+    tree->data_num = 0;
+    return tree;
+}
+
+void append_tree(struct tree *tree, string data){
+    tree->child_num++;
+    tree->child = realloc(tree->child,sizeof(struct tree *)*tree->child_num);
+    tree->child[tree->child_num-1] = new_tree(data, tree);
+}
+
+void print_tree(struct tree *tree, int level){
+    printf("%s",tree->data);
+    for(int i = 0 ; i < tree->child_num ; i++){
+        printf("\n");
+        for(int j = 0 ; j <= level ; j++){
+            printf("\t");
+        }
+        print_tree(tree->child[i], level+1);
+    }
+}
+
+void add_tree_data(struct tree *tree, void *data){
+    tree->data_num++;
+    tree->add_data = realloc(tree->add_data,sizeof(void *)*tree->data_num);
+    tree->add_data[tree->data_num-1] = data;
+}
