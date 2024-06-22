@@ -184,7 +184,7 @@ void print_dirt(struct dirt *dirt){
 }
 
 //function of tree
-struct tree *new_tree(string data, struct tree *parent){
+struct tree *new_tree(string data, string key, struct tree *parent){
     struct tree *tree = (struct tree *)malloc(sizeof(struct tree));
     tree->child_num = 0;
     tree->data = data;
@@ -192,13 +192,14 @@ struct tree *new_tree(string data, struct tree *parent){
     tree->add_data = malloc(sizeof(void *)*1);
     tree->parent = parent;
     tree->data_num = 0;
+    tree->key = key;
     return tree;
 }
 
-void append_tree(struct tree *tree, string data){
+void append_tree(struct tree *tree, string data, string key){
     tree->child_num++;
     tree->child = realloc(tree->child,sizeof(struct tree *)*tree->child_num);
-    tree->child[tree->child_num-1] = new_tree(data, tree);
+    tree->child[tree->child_num-1] = new_tree(data, key, tree);
 }
 
 void print_tree(struct tree *tree, int level){
@@ -216,4 +217,82 @@ void add_tree_data(struct tree *tree, void *data){
     tree->data_num++;
     tree->add_data = realloc(tree->add_data,sizeof(void *)*tree->data_num);
     tree->add_data[tree->data_num-1] = data;
+}
+
+string get_tree_XML(struct tree *tree, int level){
+    if(tree == NULL)    return None;
+    string str = "\0";
+    for (int i = 0; i < level; i++){
+        str = strappend(str, "\t");
+    }
+    if(tree->child_num == 0){
+        str = strappend(str, strappend("<", strappend(tree->key, ">")));
+        str = strappend(str, tree->data);
+        str = strappend(str, strappend("</", strappend(tree->key, ">\n")));
+    }else{
+        str = strappend(str, strappend("<", strappend(strappend(tree->key, strappend(" $data='", strappend(tree->data, "'"))), ">\n")));
+        for(int i = 0; i < tree->child_num; i++)    str = strappend(str, get_tree_XML(tree->child[i], level+1));
+        str = strappend(str, strappend("</", strappend(tree->key, ">\n")));
+    }
+    return str;
+    
+}
+
+tree *get_tree_from_XML(string XML){
+    tree *trees = new_tree(None, None, NULL);
+    string *strs = "\0";
+    int strs_len = 0;
+    //字符串拆分
+    bool is_data = 0;
+    bool is_data_dm = 0;
+    /*---假设数据如下---    
+    <root $data='root'>
+	    <test>None</test>
+	    <test2>None</test2>
+    </root>
+    */
+    for (ull i = 0; i < strlen(XML); i++){
+        if(XML[i] == '<' && !is_data && !is_data_dm){
+            ull len = 0;
+            while(XML[i] != '>'){
+                i++;
+                len++;
+            }
+            string str = stringcut(XML, i-len, len);
+            strs_len++ ;
+            strs = realloc(strs, sizeof(string)*len);
+            strs[len-1] = str;
+            i++;
+        }else if (XML[i] == '>' && !is_data)
+        {
+            printf("error  XML format error: XML syntax error");
+        }else if (XML[i] == '"'){
+            is_data_dm = !is_data_dm;
+        }else if(XML[i] == 39){
+            is_data = !is_data;
+        }else{
+            continue;
+        }
+    }
+    //开始解析
+    is_data = 0;
+    is_data_dm = 0;
+    for (int i = 0; i < strs_len; i++){
+        for(int str_i = 0; str_i < strlen(strs[i]); str_i++){
+            if(strs[i][str_i] == '<' || strs[i][str_i] == '>'){
+                printf("error  XML format error: XML syntax error");
+            }else if (strs[i][str_i] == '"'){
+                is_data_dm = !is_data_dm;
+                if(is_data_dm){
+                    string str = stringcut(strs[i], str_i+1, strlen(strs[i])-str_i-1);
+                    trees->data = str;
+                }
+            }else if (strs[i][str_i] == 39){
+                is_data = !is_data;
+            }
+            
+        }
+
+    }
+    
 }

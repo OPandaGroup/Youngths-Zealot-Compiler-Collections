@@ -5,10 +5,6 @@
 #include "./include/structure.h"
 
 int main(int argc, char const *argv[]){
-    struct tree *tree = new_tree("root",NULL);
-    append_tree(tree,"test_");
-    append_tree(tree,"test2_");
-    append_tree(tree->child[1],"test3_");
-    print_tree(tree, 0);
+    printf("%s", Icts("Hello World!", 0, 'o'));
     return 0;
 }

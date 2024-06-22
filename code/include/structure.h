@@ -1,5 +1,6 @@
 // 
 // stucture.h
+// time: 2024年6月22日
 // Copyright (c) 写代码ing. All rights reserved.
 //
 
@@ -9,6 +10,7 @@
 #define None "None"
 #include <stdio.h>
 #include <stdlib.h>
+#include "../include/function.h"
 
 typedef unsigned long long ull;
 typedef char * string;
@@ -75,10 +77,12 @@ typedef struct tree{
     void **add_data;
     int data_num;
     string data;
+    string key;
 }tree;
 /*function definition of tree*/
-struct tree *new_tree(string data, struct tree *parent);
-void append_tree(struct tree *tree, string data);
+struct tree *new_tree(string data, string key, struct tree *parent);
+void append_tree(struct tree *tree, string data, string key);
 void print_tree(struct tree *tree, int level);
 void add_tree_data(struct tree *tree, void *data);
+string get_tree_XML(struct tree *tree,int level); //Format: xml
 #endif

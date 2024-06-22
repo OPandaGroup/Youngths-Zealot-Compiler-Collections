@@ -1,5 +1,6 @@
 #include "../include/function.h"
 
+/*string function*/
 _Bool stringcmp(const char *str1, char *str2,_Bool efficiency){
     if(strlen(str1)!=strlen(str2)){
         return 0;
@@ -72,6 +73,105 @@ char *strappend(char *str, char *str2){
     return string ;
 }
 
+char *stringcut(char *str, ull index, ull len) {
+    char *string = (char *)malloc(len+1);
+    memset(string,0,len+1);
+    for (int i = 0; i < len; i++){
+        string[i] = str[index+i];
+    }
+    string[len] = '\0';
+    return string;
+}
+
+char *Forward_Ergodic(char *str, ull index, char stop) {
+    char *string = (char *)malloc(strlen(str));
+    memset(string, 0, strlen(str));
+    int fi = 0 ; 
+    for(int i = index ; i >= 0 ; i--){
+        if(str[i]==stop){
+            break;
+        }else{
+            string[fi++] = str[i];
+        }
+    }
+    string[fi] = '\0';
+    string = realloc(string,strlen(string)+1);
+    return string;
+}
+
+string stringFlip(string str){
+    string strs = "\0";
+    for(int i = 0;i < strlen(str) ; i++){
+        strs[i] = str[strlen(str)-1-i];
+    }
+    return strs;
+}
+
+void Flip(string str){
+    str = stringFlip(str);
+}
+
+string Nicts(string str, ull index, char stop) {
+    char *strs = "\0";
+    int len = 0;
+    bool is_str = false, is_str_md = false; // md为双引号
+    for(int i = index ; i < strlen(str) ; i++){
+        if (str[i] == stop){
+            strs[++len] = '\0';
+        }else if (str[i] == '"'){
+            is_str_md = !is_str_md;
+        }else if (str[i] == 39){
+            is_str = !is_str;
+        }else if ((str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\r') && !is_str && !is_str_md){
+            continue;
+        }else{
+            strs[++len] = str[i];
+        }
+    }
+    return strs;
+}
+
+string Forward_Nicts(string str, ull index, char stop) {
+    char *strs = "\0";
+    int len = 0;
+    bool is_str = false, is_str_md = false; // md为双引号
+    for (int i = index; i >= 0; i--){
+        if (str[i] == stop){
+            strs[++len] = '\0';
+        }else if (str[i] == '"'){
+            is_str_md = !is_str_md;
+        }else if (str[i] == 39){
+            is_str = !is_str;
+        }else if ((str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\r') && !is_str && !is_str_md){
+            continue;
+        }else{
+            strs[++len] = str[i];
+        }
+    }
+    return strs;
+}
+
+string Icts(string str, ull index, char stop){
+    string strs = "\0";
+    printf("%ld", strlen(str));
+    ull len = strlen(str);
+    for(int i = index ; i < strlen(str) ; i++){
+        printf("%d", i);
+        if (str[i] == stop){
+            strs[i-index] = '\0';
+            break;
+        }else{
+            strs[i-index] = str[i];
+        }
+    }
+}
+
+string Forward_Icts(string str, ull index, char stop){
+    return Forward_Ergodic(str,index,stop);
+}
+
+/*data function*/
+
 string intToString(int num){
     int len = log10((double)num) + 1;
     char *str = malloc(len);
@@ -82,6 +182,8 @@ string intToString(int num){
     }
     return str ;
 }
+
+/*file function*/
 
 FILE *openfile(char *filename, char *mode) {
     FILE *file = fopen(filename, mode);
