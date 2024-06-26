@@ -11,6 +11,7 @@ struct stack *new_stack(){
 
 void push_stack(struct stack *stack, string data){
     struct stack_node *node = (struct stack_node *)malloc(sizeof(struct stack_node));
+    node->more_data = NULL;
     node->next = NULL;
     node->last = stack->end;
     node->data = data;
@@ -21,8 +22,27 @@ void push_stack(struct stack *stack, string data){
         stack->end->next = node;
         stack->end = node;
     }
+    node->add_len = 0;
     stack->len++;
+    return ;
 }
+
+void push_stack_(struct stack *stack, string data, void *more_data){
+    push_stack(stack, more_data);
+    return ;
+}
+
+void add_stack_data(struct stack *stack, void *data){
+    if(stack->len == 0){
+        return;
+    }else if(stack->len == 1){
+        stack->top->more_data = data;
+    }else{
+        struct stack_node *node = stack->end;
+        node->more_data = data;
+    }
+}
+
 
 void pop_stack(struct stack *stack){
     if(stack->len == 0){
@@ -32,7 +52,6 @@ void pop_stack(struct stack *stack){
         stack->top = NULL;
         stack->end = NULL;
     }else{
-        printf("is not 0/1");
         stack->end = stack->end->last;
         free(stack->end->next);
         stack->end->next = NULL;
@@ -46,6 +65,10 @@ void print_stack(struct stack *stack){
         printf("%s",node->data);
         node = node->next;
     }
+}
+
+struct stack_node *get_stack_top(struct stack *stack){
+    return stack->end;
 }
 
 //function of list
@@ -191,6 +214,7 @@ struct tree *new_tree(string data, string key, struct tree *parent){
     tree->child = malloc(sizeof(struct tree *)*1);
     tree->add_data = malloc(sizeof(void *)*1);
     tree->parent = parent;
+    tree->more = NULL;
     tree->data_num = 0;
     tree->key = key;
     return tree;
@@ -206,9 +230,10 @@ void print_tree(struct tree *tree, int level){
     printf("%s",tree->data);
     for(int i = 0 ; i < tree->child_num ; i++){
         printf("\n");
-        for(int j = 0 ; j <= level ; j++){
-            printf("\t");
+        for(int j = 0 ; j < level ; j++){
+            printf("   ");
         }
+        printf("└──");
         print_tree(tree->child[i], level+1);
     }
 }
@@ -219,6 +244,61 @@ void add_tree_data(struct tree *tree, void *data){
     tree->add_data[tree->data_num-1] = data;
 }
 
+void append_more_data(struct tree *tree, string key, string data){
+    dirt *dirt = tree->more;
+    if(stringcmp(key, "$data", 1)){
+        printf("Error: key is $data\n");
+        return ;
+    }
+    if(dirt == NULL){
+        tree->more = new_dirt();
+        append_dirt(tree->more,key,data);
+    }else{
+        append_dirt(dirt,key,data);
+    }
+    return ;
+}
+
+string get_tree_dirt(struct tree *tree, bool child){
+    if(child){
+        string str = "\0";
+        str = strappend(str,"$data");
+        str = strappend(str,"=\"");
+        str = strappend(str,tree->data);
+        str = strappend(str,"\"");
+        if(tree->more == NULL)  return str;
+        if(tree->more->len == 0){
+            return str;
+        }else{
+            str = strappend(str, " ");
+            for(int i = 0; i < tree->more->len ; i++){
+                str = strappend(str,tree->more->head->key);
+                str = strappend(str,"=\"");
+                str = strappend(str,tree->more->head->value);
+                str = strappend(str, "\" ");
+            }
+            str = strappend(str,"\b");
+            return str;
+        }
+    }else{
+        string str = "\0";
+        if(tree->more == NULL){
+            return str ;
+        }else if(tree->more->len == 0){
+            return str;
+        }else{
+            str = strappend(str, " ");
+            for(int i = 0; i < tree->more->len ; i++){
+                str = strappend(str,tree->more->head->key);
+                str = strappend(str,"=\"");
+                str = strappend(str,tree->more->head->value);
+                str = strappend(str, "\" ");
+            }
+            return str;
+        }     
+    }
+}
+
 string get_tree_XML(struct tree *tree, int level){
     if(tree == NULL)    return None;
     string str = "\0";
@@ -226,73 +306,115 @@ string get_tree_XML(struct tree *tree, int level){
         str = strappend(str, "\t");
     }
     if(tree->child_num == 0){
-        str = strappend(str, strappend("<", strappend(tree->key, ">")));
+        str = strappend(str, strappend("<", strappend(tree->key, strappend(get_tree_dirt(tree, 0), "> "))));
         str = strappend(str, tree->data);
         str = strappend(str, strappend("</", strappend(tree->key, ">\n")));
     }else{
-        str = strappend(str, strappend("<", strappend(strappend(tree->key, strappend(" $data='", strappend(tree->data, "'"))), ">\n")));
+        str = strappend(str, strappend("<", strappend(strappend(tree->key, strappend(" ", get_tree_dirt(tree, 1))), ">\n")));
         for(int i = 0; i < tree->child_num; i++)    str = strappend(str, get_tree_XML(tree->child[i], level+1));
         str = strappend(str, strappend("</", strappend(tree->key, ">\n")));
     }
     return str;
-    
+}
+
+tree *get_child(struct tree *tree, int index){
+    if(index >= tree->child_num){
+        return NULL;
+    }else{
+        return tree->child[index];
+    }
 }
 
 tree *get_tree_from_XML(string XML){
-    tree *trees = new_tree(None, None, NULL);
-    string *strs = "\0";
-    int strs_len = 0;
-    //字符串拆分
-    bool is_data = 0;
-    bool is_data_dm = 0;
-    /*---假设数据如下---    
-    <root $data='root'>
-	    <test>None</test>
-	    <test2>None</test2>
-    </root>
-    */
+    ull start = -1;
+    int len = 1;
+    char **strs = malloc(sizeof(char *)*len);
+    //第一次预处理
     for (ull i = 0; i < strlen(XML); i++){
-        if(XML[i] == '<' && !is_data && !is_data_dm){
-            ull len = 0;
-            while(XML[i] != '>'){
-                i++;
-                len++;
+        switch (XML[i]){
+        case '<':
+            start = i;
+            break;
+        case '>':
+            if(start != -1){
+                strs[len-1] = stringcut_(XML, start, i);
+                strs = realloc(strs, sizeof(char *)*++len);
+                // printf("%s\n", strs[len-1]);
+            }else{
+                printf("XML error: xml syntax error");
+                return NULL;
             }
-            string str = stringcut(XML, i-len, len);
-            strs_len++ ;
-            strs = realloc(strs, sizeof(string)*len);
-            strs[len-1] = str;
-            i++;
-        }else if (XML[i] == '>' && !is_data)
-        {
-            printf("error  XML format error: XML syntax error");
-        }else if (XML[i] == '"'){
-            is_data_dm = !is_data_dm;
-        }else if(XML[i] == 39){
-            is_data = !is_data;
+            start = -1;
+            break;
+        default:
+            break;
+        }
+    }
+    //第二次预处理 完成对无效字符和字符串的过滤
+    dirt *dirts = new_dirt();
+    for(int i = 0;i < len - 1; i++){
+        strs[i] = delchar(delchar(strs[i], '<'), '>');//过滤括号
+        for (int j = 0; j < strlen(strs[i]); j++){
+            if(strs[i][j] == ' ' || (strs[i][j] == '/' && j != 0)){
+                string cut = strappend(stringcut_(strs[i], j, strlen(strs[i])-1), "\0") ;
+                append_dirt(dirts, intToString(i), Nicts(cut, 0, '\0'));
+                strs[i] = stringcut_(strs[i], 0, j); 
+                break;
+            }
+        }
+        strs[i] = delchar(strs[i], ' '); 
+    }
+    //完成正式处理
+    if(len == 1){printf("XML error: xml is None"); return NULL;}
+    tree *trees = new_tree(strs[0], None, NULL);
+    stack *st = new_stack(); 
+    push_stack(st, strs[0]);
+    get_stack_top(st)->more_data = trees;
+    bool is_del = false;
+    for(int i = 1; i < len - 1; i++){
+        if(strs[i][0] == '/'){
+            is_del = true;
+            strs[i] = delchar(strs[i], '/');
+        }
+        if(stringcmp(get_stack_top(st)->data, strs[i], 1) && is_del){
+            pop_stack(st);
         }else{
-            continue;
+            tree *parent = get_stack_top(st)->more_data;
+            append_tree(st->end->more_data, strs[i], None);
+            push_stack(st, strs[i]);
+            get_stack_top(st)->more_data = get_child(parent, parent->child_num - 1);
         }
+        is_del = false; 
     }
-    //开始解析
-    is_data = 0;
-    is_data_dm = 0;
-    for (int i = 0; i < strs_len; i++){
-        for(int str_i = 0; str_i < strlen(strs[i]); str_i++){
-            if(strs[i][str_i] == '<' || strs[i][str_i] == '>'){
-                printf("error  XML format error: XML syntax error");
-            }else if (strs[i][str_i] == '"'){
-                is_data_dm = !is_data_dm;
-                if(is_data_dm){
-                    string str = stringcut(strs[i], str_i+1, strlen(strs[i])-str_i-1);
-                    trees->data = str;
-                }
-            }else if (strs[i][str_i] == 39){
-                is_data = !is_data;
-            }
-            
-        }
-
-    }
+    if(st->len != 0){printf("XML error: xml syntax error"); return NULL;} 
+    print_tree(trees, 0);
+    //将树内容完善
     
+    return trees;
+}
+
+//function of resources
+
+resources *new_resources(){
+    resources *resources = (struct resources *)malloc(sizeof(resources));
+    resources->len = 0;
+    resources->data = malloc(sizeof(void *)*1);
+    return resources;
+}
+
+void append_resources(resources *resources, void *data){
+    resources->len++;
+    resources->data = realloc(resources->data, sizeof(void *)*resources->len);
+    resources->data[resources->len - 1] = data;
+    return ;
+}
+
+void remove_resources(resources *resources, int index){
+    if(index >= resources->len || index < 0){
+        printf("resources error: index out of range");
+        return ;   
+    }else{
+        resources->data[index] = NULL;
+        return ;
+    }
 }

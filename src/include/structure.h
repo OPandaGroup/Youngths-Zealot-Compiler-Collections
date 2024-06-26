@@ -8,6 +8,7 @@
 #define STUCTURE_H
 
 #define None "None"
+#define Debug(...) printf(__VA_ARGS__)
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/function.h"
@@ -25,15 +26,18 @@ typedef struct stack{
 }stack;
 struct stack_node{
     string data;
+    void *more_data;
+    int add_len ;
     struct stack_node *next;
     struct stack_node *last;
 };
 /*function definition of stack*/
 struct stack *new_stack();
 void push_stack(struct stack *stack, string data);
+void add_stack_data(struct stack *stack, void *data); //默认给栈顶添加数据
 void pop_stack(struct stack *stack);
 void print_stack(struct stack *stack);
-
+struct stack_node *get_stack_top(struct stack *stack);//获得栈顶
 /*The following code is the list definition, 
 the struct and function definition*/
 typedef struct list{
@@ -42,8 +46,8 @@ typedef struct list{
 }list;
 struct list_node{
     string data;
-    struct stack_node *next;
-    struct stack_node *last;
+    struct list_node *next;
+    struct list_node *last;
 };
 /*function definition of list*/
 struct list *new_list();
@@ -59,8 +63,8 @@ typedef struct dirt{
 }dirt;
 struct dirt_node{
     string key,value;
-    struct stack_node *next;
-    struct stack_node *last;
+    struct dirt_node *next;
+    struct dirt_node *last;
 };
 /*function definition of dirt*/
 struct dirt *new_dirt();
@@ -76,6 +80,7 @@ typedef struct tree{
     struct tree **child;
     void **add_data;
     int data_num;
+    dirt *more;
     string data;
     string key;
 }tree;
@@ -84,5 +89,17 @@ struct tree *new_tree(string data, string key, struct tree *parent);
 void append_tree(struct tree *tree, string data, string key);
 void print_tree(struct tree *tree, int level);
 void add_tree_data(struct tree *tree, void *data);
+void append_more_data(struct tree *tree, string key, string data);
 string get_tree_XML(struct tree *tree,int level); //Format: xml
+tree *get_child(tree *tree, int index);
+tree *get_tree_from_XML(string xml);
+/*The following code is the resources definition, 
+the struct and function definition*/
+typedef struct resources{
+    int len;
+    void **data;
+}resources;
+resources *new_resources();
+void append_resources(resources *resources, void *data);
+void remove_resources(resources *resources, int index);
 #endif

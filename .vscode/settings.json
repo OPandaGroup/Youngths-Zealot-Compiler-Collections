@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "function.h": "c",
+        "stdio.h": "c",
+        "xstring": "c",
+        "xutility": "c"
+    }
+}
