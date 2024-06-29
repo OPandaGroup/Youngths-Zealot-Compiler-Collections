@@ -1,0 +1,10 @@
+<project file = 'test.c' load = 'x86_64.pdc' os = 'linux' signature = 'MultilanguageCompiler 1.0.0'>
+	<bbs>
+		<a>1</a>
+	</bbs>
+	<function name = 'main'>
+		<definition length = '4' type = 'int' Another = 'aba'>0</definition>
+		<alter name = 'aba'>0</alter>
+		<return>0</return>
+	</function>
+</project>

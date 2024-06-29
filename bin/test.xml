@@ -1,6 +1,6 @@
 <build>
     <main>
         <class>Test</class>
-        <method>test</m $ethod = "test">
+        <method>test</method = "test" hello='hello'>
     </main>
 </build>

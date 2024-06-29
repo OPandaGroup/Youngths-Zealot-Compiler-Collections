@@ -141,10 +141,10 @@ string Nicts(string str, ull index, char stop) {
     for(int i = index ; i < strlen(str) ; i++){
         if (str[i] == stop){
             strs[++len] = '\0';
-        }else if (str[i] == '"'){
+        }else if (str[i] == '"' && !is_str){
             is_str_md = !is_str_md;
             strs[++len] = str[i];
-        }else if (str[i] == 39){
+        }else if (str[i] == 39 && !is_str_md){
             is_str = !is_str;
             strs[++len] = str[i];
         }else if ((str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\r') && !is_str && !is_str_md){
@@ -165,10 +165,10 @@ string Nictsc(string str, char ch[], ull index, char stop) {
     for(int i = index ; i < strlen(str) ; i++){
         if (str[i] == stop){
             strs[++len] = '\0';
-        }else if (str[i] == '"'){
+        }else if (str[i] == '"' && !is_str){
             is_str_md = !is_str_md;
             strs[++len] = str[i];
-        }else if (str[i] == 39){
+        }else if (str[i] == 39 && !is_str_md){
             is_str = !is_str;
             strs[++len] = str[i];
         }else{
@@ -194,10 +194,10 @@ string Forward_Nicts(string str, ull index, char stop) {
     for (int i = index; i >= 0; i--){
         if (str[i] == stop){
             strs[++len] = '\0';
-        }else if (str[i] == '"'){
+        }else if (str[i] == '"' && !is_str){
             is_str_md = !is_str_md;
             strs[++len] = str[i];
-        }else if (str[i] == 39){
+        }else if (str[i] == 39 && !is_str_md){
             is_str = !is_str;
             strs[++len] = str[i];
         }else if ((str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\r') && !is_str && !is_str_md){
@@ -218,10 +218,10 @@ string Forward_Nictsc(string str, char ch[], ull index, char stop){
     for (int i = index; i >= 0; i--){
         if (str[i] == stop){
             strs[++len] = '\0';
-        }else if (str[i] == '"'){
+        }else if (str[i] == '"' && !is_str){
             is_str_md = !is_str_md;
             strs[++len] = str[i];
-        }else if (str[i] == 39){
+        }else if (str[i] == 39 && !is_str_md){
             is_str = !is_str;
             strs[++len] = str[i];
         }else{
@@ -265,9 +265,9 @@ bool Nicts_bool(string str, ull index, char stop){
     for(int i = index; i<strlen(str);i++){
         if(str[i]==stop){
             return 0;
-        }else if (str[i]=='"'){
+        }else if (str[i]=='"' && !is_str){
             is_str_md = !is_str_md;
-        }else if (str[i]==39){
+        }else if (str[i]==39 && !is_str_md){
             is_str = !is_str;
         }else if ((str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\r') && !is_str && !is_str_md){
             return 1;
@@ -283,9 +283,9 @@ bool Nictsc_bool(string str, char ch[], ull index, char stop){
     for(int i = index; i<strlen(str);i++){
         if(str[i]==stop){
             return 0;
-        }else if (str[i]=='"'){
+        }else if (str[i]=='"' && !is_str){
             is_str_md = !is_str_md;
-        }else if (str[i]==39){
+        }else if (str[i]==39 && !is_str_md){
             is_str = !is_str;
         }else{
             for(int j = 0; j < strlen(ch); j++){
@@ -304,9 +304,9 @@ bool Icts_bool(string str, ull index, char stop){
     for(int i = index; i<strlen(str);i++){
         if (str[i] == stop){
             return 0;
-        }else if (str[i]=='"'){
+        }else if (str[i]=='"' && !is_str){
             is_str_md = !is_str_md;
-        }else if (str[i]==39){
+        }else if (str[i]==39 && !is_str){
             is_str = !is_str;
         }else if((str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\r') && !is_str_md && !is_str){
             return 1;
@@ -322,9 +322,9 @@ bool Ictsc_bool(string str, char ch[], ull index, char stop){
     for(int i = index; i<strlen(str);i++){
         if (str[i] == stop){
             return 0;
-        }else if (str[i]=='"'){
+        }else if (str[i]=='"' && !is_str){
             is_str_md = !is_str_md;
-        }else if (str[i]==39){
+        }else if (str[i]==39 && !is_str_md){
             is_str = !is_str;
         }else{
             for (int j = 0; j < strlen(ch); j++){
@@ -360,9 +360,9 @@ bool Fowrard_Nictsc_bool(string str, char ch[], ull index, char stop){
     for(int i = index; i>=0; i--){
         if(str[i]==stop){
             return 0;
-        }else if (str[i]=='"'){
+        }else if (str[i]=='"' && !is_str){
             is_str_md = !is_str_md;
-        }else if (str[i]==39){
+        }else if (str[i]==39 && !is_str_md){
             is_str = !is_str;
         }else{
             for (int j = 0; j < strlen(ch); j++){
@@ -406,11 +406,11 @@ string delchar(string str, char ch){
     for (int i = 0; i < strlen(str); i++){
         if(str[i]==ch && !is_str_dm && !is_str){
             continue;
-        }else if(str[i]=='"'){
+        }else if(str[i]=='"' && !is_str){
             is_str_dm = !is_str_dm;
             strs[index] = str[i];
             index++;
-        }else if(str[i]=='\''){
+        }else if(str[i]=='\'' && !is_str_dm){
             is_str = !is_str;
             strs[index] = str[i];
             index++;

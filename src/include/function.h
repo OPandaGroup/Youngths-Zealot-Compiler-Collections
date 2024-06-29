@@ -14,7 +14,7 @@
 #define true 1
 #define false 0
 
-typedef unsigned long long ull;
+typedef size_t ull;
 typedef _Bool bool;
 typedef char * string;
 

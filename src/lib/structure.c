@@ -1,5 +1,28 @@
 #include "../include/structure.h"
 
+/*
+ *                    _ooOoo_
+ *                   o8888888o
+ *                   88" . "88
+ *                   (| -_- |)
+ *                    O\ = /O
+ *                ____/`---'\____
+ *              .   ' \\| |// `.
+ *               / \\||| : |||// \
+ *             / _||||| -:- |||||- \
+ *               | | \\\ - /// | |
+ *             | \_| ''\---/'' | |
+ *              \ .-\__ `-` ___/-. /
+ *           ___`. .' /--.--\ `. . __
+ *        ."" '< `.___\_<|>_/___.' >'"".
+ *       | | : `- \`.;`\ _ /`;.`/ - ` : | |
+ *         \ \ `-. \_ __\ /__ _/ .-` / /
+ * ======`-.____`-.___\_____/___.-`____.-'======
+ *                    `=---='
+ *
+ * .............................................
+ *          佛祖保佑             永无BUG
+ */
 //function of stack
 struct stack *new_stack(){
     struct stack *stack = (struct stack *)malloc(sizeof(struct stack));
@@ -227,7 +250,7 @@ void append_tree(struct tree *tree, string data, string key){
 }
 
 void print_tree(struct tree *tree, int level){
-    printf("%s",tree->data);
+    printf("%s",tree->key);
     for(int i = 0 ; i < tree->child_num ; i++){
         printf("\n");
         for(int j = 0 ; j < level ; j++){
@@ -325,10 +348,39 @@ tree *get_child(struct tree *tree, int index){
     }
 }
 
+dirt *get_dirt_string_tree(string data){
+    dirt *dirts = new_dirt();
+    bool is_key = 1, is_string = 0, is_string_dm = 0;
+    string key = "\0", value = "\0";
+    for (int i = 0; i < strlen(data); i++){
+        switch (data[i]){
+        case ',':
+            if(data[i-1] == ',' && !is_string && !is_string_dm){
+                append_dirt(dirts, key, value);
+            }else{
+                if(is_string){
+                    value = strappend(value, data[i]);
+                }else{
+                    key = strappend(key, data[i]);
+                    mk
+                }
+            }
+            break;
+    
+        default:
+            break;
+        }
+    }
+    
+    
+    
+}
+
 tree *get_tree_from_XML(string XML){
     ull start = -1;
     int len = 1;
     char **strs = malloc(sizeof(char *)*len);
+    dirt *dirt_data = new_dirt();
     //第一次预处理
     for (ull i = 0; i < strlen(XML); i++){
         switch (XML[i]){
@@ -340,6 +392,7 @@ tree *get_tree_from_XML(string XML){
                 strs[len-1] = stringcut_(XML, start, i);
                 strs = realloc(strs, sizeof(char *)*++len);
                 // printf("%s\n", strs[len-1]);
+                // append_dirt(dirt_data, intToString(i), strs[len-1]);
             }else{
                 printf("XML error: xml syntax error");
                 return NULL;
@@ -350,8 +403,9 @@ tree *get_tree_from_XML(string XML){
             break;
         }
     }
+    // print_dirt(dirt_data);
     //第二次预处理 完成对无效字符和字符串的过滤
-    dirt *dirts = new_dirt();
+    dirt *dirts = new_dirt(); //处理更多数据
     for(int i = 0;i < len - 1; i++){
         strs[i] = delchar(delchar(strs[i], '<'), '>');//过滤括号
         for (int j = 0; j < strlen(strs[i]); j++){
@@ -364,9 +418,11 @@ tree *get_tree_from_XML(string XML){
         }
         strs[i] = delchar(strs[i], ' '); 
     }
+    // print_dirt(dirts);
+    print_dirt(get_dirt_string_tree("$data=\"hello\""));
     //完成正式处理
     if(len == 1){printf("XML error: xml is None"); return NULL;}
-    tree *trees = new_tree(strs[0], None, NULL);
+    tree *trees = new_tree(None, strs[0], NULL);
     stack *st = new_stack(); 
     push_stack(st, strs[0]);
     get_stack_top(st)->more_data = trees;
@@ -380,7 +436,7 @@ tree *get_tree_from_XML(string XML){
             pop_stack(st);
         }else{
             tree *parent = get_stack_top(st)->more_data;
-            append_tree(st->end->more_data, strs[i], None);
+            append_tree(st->end->more_data, None, strs[i]);
             push_stack(st, strs[i]);
             get_stack_top(st)->more_data = get_child(parent, parent->child_num - 1);
         }

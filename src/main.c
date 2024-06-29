@@ -6,12 +6,13 @@
 #include "./include/structure.h"
 
 int main(){
-    FILE *fp = openfile("build.xml", "r");
-    if(fp == NULL){
-        printf("Error: build.xml not found\n");
-        return 1;
-    }else{
-        string Xml = readfile(fp, fileSize(fp));
-        tree *trees = get_tree_from_XML(Xml);
-    }
+    // FILE *fp = openfile("build.xml", "r");
+    // if(fp == NULL){
+    //     printf("Error: build.xml not found\n");
+    //     return 1;
+    // }else{
+    //     string Xml = readfile(fp, fileSize(fp));
+    //     tree *trees = get_tree_from_XML(Xml);
+    // }
+    
 }

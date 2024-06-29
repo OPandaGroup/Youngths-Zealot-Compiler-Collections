@@ -3,6 +3,8 @@
         "function.h": "c",
         "stdio.h": "c",
         "xstring": "c",
-        "xutility": "c"
+        "xutility": "c",
+        "structure.h": "c",
+        "winsock2.h": "c"
     }
 }
