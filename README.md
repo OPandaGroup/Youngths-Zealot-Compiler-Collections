@@ -77,7 +77,7 @@
 
 ### 加入我们
 
-​	您可以给我们(Panda_Feedback@outlook.com)发送加入申请,申请文件见下 括号中的内容必需替换成对应的内容或删除: 
+​	您可以给我们(Panda_Feedback@outlook.com)发送加入申请,也可以加入我们的QQ群聊(689990013),申请文件见下 括号中的内容必需替换成对应的内容或删除: 
 
 ```markdown
 # join file
