@@ -1,4 +1,4 @@
-# Multilanguage compiler
+# Youngths' Zealot Compiler Collections
 ## 目录
 
 ​	语言
@@ -23,7 +23,7 @@
 
 ## 知识版权
 
-这个项目是一个免费开源的项目，名字为MultilanguageCompiler，中文是多语言编译器，同时，因为ta叫MultilanguageCompiler，所以，这个给可以简写为MC(这个mc和MineCraft没有任何关系)，当然，你也可以叫他PDMC，就是PandaMultilanguageCompiler ，因为我们小组也叫Panda，所以给可以叫PDMC
+这个项目是一个免费开源的项目，名字为Youngths' Zealot Compiler Collections，中文是青年热心者的编译器合集
 
 ### 总结
 
