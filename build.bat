@@ -30,5 +30,7 @@ rd /s /q ..\build\src
 xcopy "..\build\bin" ".\bin" /E /I /Y
 xcopy "..\build\lib" ".\lib" /E /I /Y
 echo [%time%]:完成编译 >> build.log
-echo [%time%]:完成编译                       
+echo [%time%]:完成编译,loading...
+echo [%time%]:Running >> build.log        
+..\build\bin\mc.exe               
 pause

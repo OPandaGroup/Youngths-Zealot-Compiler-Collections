@@ -1,6 +1,0 @@
-<build>
-    <main>
-        <class>Test</class>
-        <method>test</method = "test" hello='hello'>
-    </main>
-</build>

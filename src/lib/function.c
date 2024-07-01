@@ -465,8 +465,7 @@ int stringToInt(string str){
 /*file function*/
 
 FILE *openfile(const char *filename, char *mode) {
-    FILE *file = fopen(filename, mode);
-    return file;
+    return fopen(filename, mode);
 }
 
 char *readfile(FILE *file, ull len){

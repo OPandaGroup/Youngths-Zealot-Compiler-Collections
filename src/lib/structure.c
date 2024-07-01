@@ -348,34 +348,6 @@ tree *get_child(struct tree *tree, int index){
     }
 }
 
-dirt *get_dirt_string_tree(string data){
-    dirt *dirts = new_dirt();
-    bool is_key = 1, is_string = 0, is_string_dm = 0;
-    string key = "\0", value = "\0";
-    for (int i = 0; i < strlen(data); i++){
-        switch (data[i]){
-        case ',':
-            if(data[i-1] == ',' && !is_string && !is_string_dm){
-                append_dirt(dirts, key, value);
-            }else{
-                if(is_string){
-                    value = strappend(value, data[i]);
-                }else{
-                    key = strappend(key, data[i]);
-                    mk
-                }
-            }
-            break;
-    
-        default:
-            break;
-        }
-    }
-    
-    
-    
-}
-
 tree *get_tree_from_XML(string XML){
     ull start = -1;
     int len = 1;
@@ -419,7 +391,7 @@ tree *get_tree_from_XML(string XML){
         strs[i] = delchar(strs[i], ' '); 
     }
     // print_dirt(dirts);
-    print_dirt(get_dirt_string_tree("$data=\"hello\""));
+    // print_dirt(get_dirt_string_tree("$data=\"hello\""));
     //完成正式处理
     if(len == 1){printf("XML error: xml is None"); return NULL;}
     tree *trees = new_tree(None, strs[0], NULL);
