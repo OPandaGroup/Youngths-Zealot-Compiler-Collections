@@ -51,6 +51,8 @@ struct list_node{
 };
 /*function definition of list*/
 struct list *new_list();
+struct list *split(string str, char delimiter);
+struct list_node *get_list_node(struct list *list, int index);
 void append_list(struct list *list, string data);
 void remove_list(struct list *list, int index);
 void print_list(struct list *list);

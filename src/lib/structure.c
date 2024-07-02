@@ -103,6 +103,38 @@ struct list *new_list(){
     return list;
 }
 
+list *split(string str, char delimiter){
+    int i = 0, j = 0, start = 0; // i是游标,j是记录位置,idx是记录string的遍历位置
+    list *ls = new_list();       // 创建一个list
+    str = strappend(str, ",");
+    bool is_str = 0, is_str_dm = 0;
+    while (str[i] != '\0'){
+        if(str[i] == '\"' && is_str == 0){
+            is_str = !is_str;
+        }else if(str[i] == '\'' && is_str_dm == 0){
+            is_str_dm = !is_str_dm;
+        }else if(str[i] == delimiter){
+            string tmp = stringcut(str, start, i - start);
+            append_list(ls, tmp);
+            start = i + 1;
+        }
+        i++;
+    }
+    return ls;
+}
+
+struct list_node *get_list_node(struct list *list, int index){
+    if(index >= list->len){
+        return NULL;
+    }else{
+        struct list_node *node = list->head;
+        for(int i=0;i<index;i++){
+            node = node->next;
+        }
+        return node;
+    }
+}
+
 void append_list(struct list *list, string data){
     struct list_node *node = (struct list_node *)malloc(sizeof(struct list_node));
     node->data = data;
@@ -348,6 +380,53 @@ tree *get_child(struct tree *tree, int index){
     }
 }
 
+void dc(string str, char ch){
+    string data = malloc(sizeof(char)*strlen(str)); memset(data, 0, strlen(str));
+    for (size_t i = 0; i < strlen(str); i++){
+        if(str[i] == ch){
+            continue;
+        }else{
+            data[strlen(data)] = str[i];
+        }
+    }
+    data = strappend(data, "\0");
+    str = data;
+}
+
+dirt *get_treeMoreData(string str){ //但是好像一堆bug，就当个测试版
+    string data = malloc(sizeof(char)*strlen(str)); memset(data, 0, strlen(str));
+    bool is_str = 0, is_str_dm = 0;
+    data[strlen(data)] = str[0]; //强制加上第一个字符,这样避免在for中的特殊判断 
+    for (size_t i = 1; i < strlen(str); i++){
+        if(str[i] == ' ' && !is_str && !is_str_dm){
+            if(str[i-1] == '\'' || str[i-1] == '\"')
+                data[strlen(data)] = ',';
+            else
+                continue;
+        }else if(str[i] == '\"' && !is_str){
+            is_str_dm = !is_str_dm;
+        }else if(str[i] == '\'' && !is_str_dm){
+            is_str = !is_str;
+        }
+        data[strlen(data)] = str[i];
+    }
+    printf("%s\n", data);
+    // data = Nicts(data, 0, '\0') ; //过滤掉空格(主要实验的时候有些空格)
+    list *list = split(data, ',');
+    dirt *Adirt = new_dirt();print_list(list);
+    printf("\n");
+    for (size_t i = 0; i < list->len; i++){
+        string key = Icts(get_list_node(list, i)->data, 0, '=');
+        string value = Icts(get_list_node(list, i)->data, strlen(key)+1, '\0');
+        value = delchar(value, '\"');delchar(value, '\'');
+        append_dirt(Adirt, key, value);
+    }
+    print_dirt(Adirt);
+    // printf("%s\n", data) ;
+    
+    return Adirt;
+}
+
 tree *get_tree_from_XML(string XML){
     ull start = -1;
     int len = 1;
@@ -417,7 +496,7 @@ tree *get_tree_from_XML(string XML){
     if(st->len != 0){printf("XML error: xml syntax error"); return NULL;} 
     print_tree(trees, 0);
     //将树内容完善
-    
+    get_treeMoreData("world = \"world\" world = \"hello\"");
     return trees;
 }
 

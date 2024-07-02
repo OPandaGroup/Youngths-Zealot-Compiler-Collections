@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <Windows.h>
 #define true 1
 #define false 0
 
@@ -48,6 +49,8 @@ bool Ictsc_bool(string str, char ch[], ull index, char stop) ; //到...字符停
 bool Fowrard_Nictsc_bool(string str, char ch[], ull index, char stop) ; //到...字符停止，中间不包含无效字符，倒序 例如 : he llo,world! stop = ',' index = 8 结果为 true
 bool Forward_Ictsc_bool(string str, char ch[], ull index, char stop) ; //到...字符停止，中间包含无效字符，倒序 例如 : he llo,world! stop = ',' index = 8 结果为 false
 string delchar(string str, char ch); //在字符串中删除指定字符 不包含" ,' 中的任何字符
+//替换
+string Replace(string str, char ch1, char ch2);
 //data conversion
 string intToString(int num);
 int stringToInt(string str);
@@ -57,4 +60,6 @@ string readfile(FILE *file, ull len);
 void closefile(FILE *file);
 void writetofile(FILE *file, char *str);
 ull fileSize(FILE *file);
+//关于语言的处理(其实就是更改编码)
+void language();
 #endif

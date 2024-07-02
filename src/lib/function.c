@@ -241,7 +241,7 @@ string Forward_Nictsc(string str, char ch[], ull index, char stop){
 }
 
 string Icts(string str, ull index, char stop){
-    string strs = malloc(strlen(str));
+    string strs = malloc(strlen(str)); memset(strs, 0, strlen(str));
     ull len = strlen(str);
     for(int i = index ; i < strlen(str) ; i++){
         if (str[i] == stop){
@@ -428,6 +428,7 @@ string delchar(string str, char ch){
 
 string intToString(int num){
     string str = malloc(1);
+    memset(str, 0, sizeof(char));
     int len = 0;
     if(num == 0){
         return "0";
@@ -460,6 +461,19 @@ int stringToInt(string str){
     }else{
         return num;
     }
+}
+
+string Replace(string str, char ch1, char ch2){
+    string strs = malloc(strlen(str)); memset(strs, 0, strlen(str)+1);
+    for (size_t i = 0; i < strlen(str); i++) {
+        if(str[i] == ch1){
+            strs[i] = ch2;
+        }else{
+            strs[i] = str[i];
+        }
+    }
+    strs[strlen(str)] = '\0';
+    return strs;
 }
 
 /*file function*/
@@ -496,4 +510,8 @@ ull fileSize(FILE *file) {
     size = ftell(file);
     fseek(file, 0, SEEK_SET);
     return size;
+}
+
+void language() {
+    SetConsoleOutputCP(65001) ;
 }
