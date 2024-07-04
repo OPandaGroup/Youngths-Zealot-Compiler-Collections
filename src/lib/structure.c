@@ -412,6 +412,7 @@ dirt *get_treeMoreData(string str){ //但是好像一堆bug，就当个测试版
     }
     printf("%s\n", data);
     // data = Nicts(data, 0, '\0') ; //过滤掉空格(主要实验的时候有些空格)
+    data = delchar(data, ' ');
     list *list = split(data, ',');
     dirt *Adirt = new_dirt();print_list(list);
     printf("\n");
