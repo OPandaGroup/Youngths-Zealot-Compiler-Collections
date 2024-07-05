@@ -135,12 +135,12 @@ void Flip(string str){
 }
 
 string Nicts(string str, ull index, char stop) {
-    char *strs = malloc(strlen(str));
+    char *strs = malloc(strlen(str)); memset(strs, 0, strlen(str));
     int len = 0;
     bool is_str = false, is_str_md = false; // md为双引号
     for(int i = index ; i < strlen(str) ; i++){
         if (str[i] == stop){
-            strs[++len] = '\0';
+            strs[len] = '\0';
         }else if (str[i] == '"' && !is_str){
             is_str_md = !is_str_md;
             strs[++len] = str[i];
@@ -153,18 +153,18 @@ string Nicts(string str, ull index, char stop) {
             strs[++len] = str[i];
         }
     }
-    strs[++len] = '\0';
+    strs[len] = '\0';
     strs = realloc(strs,strlen(strs)+1);
     return strs;
 }
 
 string Nictsc(string str, char ch[], ull index, char stop) {
-    char *strs = malloc(strlen(str));
+    char *strs = malloc(strlen(str)); memset(strs, 0, strlen(strs));
     int len = 0;
     bool is_str = false, is_str_md = false, flag = 0; // md为双引号
     for(int i = index ; i < strlen(str) ; i++){
         if (str[i] == stop){
-            strs[++len] = '\0';
+            strs[len] = '\0';
         }else if (str[i] == '"' && !is_str){
             is_str_md = !is_str_md;
             strs[++len] = str[i];
@@ -182,18 +182,18 @@ string Nictsc(string str, char ch[], ull index, char stop) {
             if(!flag)   strs[++len] = str[i];
         }
     }
-    strs[++len] = '\0';
+    strs[len] = '\0';
     strs = realloc(strs,strlen(strs)+1);
     return strs;
 }
 
 string Forward_Nicts(string str, ull index, char stop) {
-    char *strs = malloc(strlen(str));
+    char *strs = malloc(strlen(str)); memset(strs, 0, strlen(strs));
     int len = 0;
     bool is_str = false, is_str_md = false; // md为双引号
     for (int i = index; i >= 0; i--){
         if (str[i] == stop){
-            strs[++len] = '\0';
+            strs[len] = '\0';
         }else if (str[i] == '"' && !is_str){
             is_str_md = !is_str_md;
             strs[++len] = str[i];
@@ -206,18 +206,18 @@ string Forward_Nicts(string str, ull index, char stop) {
             strs[++len] = str[i];
         }
     }
-    strs[++len] = '\0';
+    strs[len] = '\0';
     strs = realloc(strs,strlen(strs)+1);
     return strs;
 }
 
 string Forward_Nictsc(string str, char ch[], ull index, char stop){
-    char *strs = malloc(strlen(str));
+    char *strs = malloc(strlen(str)); memset(strs, 0, strlen(strs));
     int len = 0;
     bool is_str = false, is_str_md = false, flag = 0; // md为双引号
     for (int i = index; i >= 0; i--){
         if (str[i] == stop){
-            strs[++len] = '\0';
+            strs[len] = '\0';
         }else if (str[i] == '"' && !is_str){
             is_str_md = !is_str_md;
             strs[++len] = str[i];
@@ -235,7 +235,7 @@ string Forward_Nictsc(string str, char ch[], ull index, char stop){
             if(!flag)   strs[++len] = str[i];
         }
     }
-    strs[++len] = '\0';
+    strs[len] = '\0';
     strs = realloc(strs,strlen(strs)+1);
     return strs;
 }
@@ -251,7 +251,7 @@ string Icts(string str, ull index, char stop){
             strs[i-index] = str[i];
         }
     }
-    strs[++len] = '\0';
+    strs[len] = '\0';
     strs = realloc(strs,strlen(strs)+1);
     return strs;
 }

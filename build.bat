@@ -1,6 +1,8 @@
 @echo off
 chcp 65001
-echo Building...
+echo Building...(X64)
+echo 准备编译...(X64)
+timeout /t 10
 echo [%time%]:启动编译流程 > build.log
 del ..\build /Q /S
 echo [%time%]:删除老文件 >> build.log
@@ -8,7 +10,9 @@ xcopy ".\*.*" "..\build" /E /I /Y
 echo [%time%]:复制完整代码 >> build.log
 echo [%time%]:开始编译 >> build.log
 del ..\build\build.log
-del ..\build\build.bat
+del ..\build\build.bat 
+del /q ..\build\lib
+del /q ..\build\bin
 echo 删除编译日志
 gcc -shared -fpic ../build/src/lib/function.c -o ../build/lib/function.dll
 echo [%time%]:function.c >> build.log

@@ -463,7 +463,7 @@ tree *get_tree_from_XML(string XML){
         for (int j = 0; j < strlen(strs[i]); j++){
             if(strs[i][j] == ' ' || (strs[i][j] == '/' && j != 0)){
                 string cut = strappend(stringcut_(strs[i], j, strlen(strs[i])-1), "\0") ;
-                append_dirt(dirts, intToString(i), Nicts(cut, 0, '\0'));
+                append_dirt(dirts, intToString(i), Icts(cut, 0, '\0'));
                 strs[i] = stringcut_(strs[i], 0, j); 
                 break;
             }
@@ -496,8 +496,14 @@ tree *get_tree_from_XML(string XML){
     }
     if(st->len != 0){printf("XML error: xml syntax error"); return NULL;} 
     print_tree(trees, 0);
+    print_dirt(dirts);
     //将树内容完善
-    get_treeMoreData("world = \"world\" world = \"hello\"");
+    struct dirt_node *dirt_node = dirts->head;
+    for(int i = 0; i < dirts->len; i++){
+        if(dirt_node == NULL)   break;
+        get_treeMoreData(dirt_node->value);
+    }
+    // get_treeMoreData("world = \"world\" world = \"hello\"");
     return trees;
 }
 
