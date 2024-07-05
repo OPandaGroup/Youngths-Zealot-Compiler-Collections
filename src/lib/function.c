@@ -400,7 +400,7 @@ bool Forward_Ictsc_bool(string str, char ch[], ull index, char stop){
 }
 
 string delchar(string str, char ch){
-    string strs = malloc(strlen(str));
+    string strs = malloc(strlen(str)); memset(strs, 0, strlen(str));
     bool is_str = 0, is_str_dm = 0;
     int index = 0;
     for (int i = 0; i < strlen(str); i++){
@@ -514,4 +514,10 @@ ull fileSize(FILE *file) {
 
 void language() {
     SetConsoleOutputCP(65001) ;
+}
+
+void gotoxy(int x, int y) {
+	COORD pos = {x,y};
+	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);// 获取标准输出设备句柄
+	SetConsoleCursorPosition(hOut, pos);//两个参数分别是指定哪个窗体，具体位置
 }

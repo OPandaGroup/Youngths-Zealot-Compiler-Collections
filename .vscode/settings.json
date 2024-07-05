@@ -5,6 +5,7 @@
         "xstring": "c",
         "xutility": "c",
         "structure.h": "c",
-        "winsock2.h": "c"
+        "winsock2.h": "c",
+        "windows.h": "c"
     }
 }

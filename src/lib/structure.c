@@ -1,28 +1,5 @@
 #include "../include/structure.h"
 
-/*
- *                    _ooOoo_
- *                   o8888888o
- *                   88" . "88
- *                   (| -_- |)
- *                    O\ = /O
- *                ____/`---'\____
- *              .   ' \\| |// `.
- *               / \\||| : |||// \
- *             / _||||| -:- |||||- \
- *               | | \\\ - /// | |
- *             | \_| ''\---/'' | |
- *              \ .-\__ `-` ___/-. /
- *           ___`. .' /--.--\ `. . __
- *        ."" '< `.___\_<|>_/___.' >'"".
- *       | | : `- \`.;`\ _ /`;.`/ - ` : | |
- *         \ \ `-. \_ __\ /__ _/ .-` / /
- * ======`-.____`-.___\_____/___.-`____.-'======
- *                    `=---='
- *
- * .............................................
- *          佛祖保佑             永无BUG
- */
 //function of stack
 struct stack *new_stack(){
     struct stack *stack = (struct stack *)malloc(sizeof(struct stack));
@@ -104,8 +81,12 @@ struct list *new_list(){
 }
 
 list *split(string str, char delimiter){
+    Debug("Split") ;
     int i = 0, j = 0, start = 0; // i是游标,j是记录位置,idx是记录string的遍历位置
     list *ls = new_list();       // 创建一个list
+    Debug("Split") ;
+    str = Replace(str, delimiter, ',');
+    Debug("Replace") ;
     str = strappend(str, ",");
     bool is_str = 0, is_str_dm = 0;
     while (str[i] != '\0'){
@@ -409,11 +390,12 @@ dirt *get_treeMoreData(string str){ //但是好像一堆bug，就当个测试版
             is_str = !is_str;
         }
         data[strlen(data)] = str[i];
+        putchar(str[i]);
     }
-    printf("%s\n", data);
-    // data = Nicts(data, 0, '\0') ; //过滤掉空格(主要实验的时候有些空格)
+    data[strlen(data)-1] = '\0';
     data = delchar(data, ' ');
     list *list = split(data, ',');
+    Debug("split\n");
     dirt *Adirt = new_dirt();print_list(list);
     printf("\n");
     for (size_t i = 0; i < list->len; i++){
@@ -423,8 +405,6 @@ dirt *get_treeMoreData(string str){ //但是好像一堆bug，就当个测试版
         append_dirt(Adirt, key, value);
     }
     print_dirt(Adirt);
-    // printf("%s\n", data) ;
-    
     return Adirt;
 }
 
@@ -501,7 +481,8 @@ tree *get_tree_from_XML(string XML){
     struct dirt_node *dirt_node = dirts->head;
     for(int i = 0; i < dirts->len; i++){
         if(dirt_node == NULL)   break;
-        get_treeMoreData(dirt_node->value);
+        printf("\n%s\n", dirt_node->value);
+        get_treeMoreData(strappend(dirt_node->value, "\0"));
     }
     // get_treeMoreData("world = \"world\" world = \"hello\"");
     return trees;

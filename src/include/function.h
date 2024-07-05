@@ -62,4 +62,17 @@ void writetofile(FILE *file, char *str);
 ull fileSize(FILE *file);
 //关于语言的处理(其实就是更改编码)
 void language();
+//windows操作
+void gotoxy(int x, int y) ;
+//Debug工具
+struct debug_node{
+    string title;
+};
+typedef struct debug{
+    ull len;
+    string *strs;
+}debug;
+debug *new_debug(string str);
+void add_debug(debug *debug, string str);
+void print_debug(debug *debug);
 #endif
