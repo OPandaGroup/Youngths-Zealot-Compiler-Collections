@@ -1,11 +1,5 @@
 {
     "files.associations": {
-        "function.h": "c",
-        "stdio.h": "c",
-        "xstring": "c",
-        "xutility": "c",
-        "structure.h": "c",
-        "winsock2.h": "c",
-        "windows.h": "c"
+        "pfile.h": "c"
     }
 }

@@ -1,17 +1,9 @@
-// 
-// function.h
-// time: 2024年6月23日
-// Copyright (c) 写代码ing. All rights reserved.
-//
+#ifndef _PSing_H
+#define _PSing_H
 
-#ifndef DATA_H
-#define DATA_H
-
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <Windows.h>
 #define true 1
 #define false 0
 
@@ -19,7 +11,6 @@ typedef size_t ull;
 typedef _Bool bool;
 typedef char * string;
 
-//string
 _Bool stringcmp(const char *str1, char *str2,_Bool efficiency); //efficiency
 ull stringsearch(char *str1, char *str2); 
 char *erase(char *str,ull index,ull len);
@@ -51,28 +42,5 @@ bool Forward_Ictsc_bool(string str, char ch[], ull index, char stop) ; //到...�
 string delchar(string str, char ch); //在字符串中删除指定字符 不包含" ,' 中的任何字符
 //替换
 string Replace(string str, char ch1, char ch2);
-//data conversion
-string intToString(int num);
-int stringToInt(string str);
-//file 
-FILE *openfile(const char *filename, char *mode);
-string readfile(FILE *file, ull len);
-void closefile(FILE *file);
-void writetofile(FILE *file, char *str);
-ull fileSize(FILE *file);
-//关于语言的处理(其实就是更改编码)
-void language();
-//windows操作
-void gotoxy(int x, int y) ;
-//Debug工具
-struct debug_node{
-    string title;
-};
-typedef struct debug{
-    ull len;
-    string *strs;
-}debug;
-debug *new_debug(string str);
-void add_debug(debug *debug, string str);
-void print_debug(debug *debug);
+
 #endif

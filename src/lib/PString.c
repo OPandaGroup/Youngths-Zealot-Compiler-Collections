@@ -1,4 +1,4 @@
-#include "../include/function.h"
+#include "../include/PString.h"
 
 /*string function*/
 _Bool stringcmp(const char *str1, char *str2,_Bool efficiency){
@@ -424,45 +424,6 @@ string delchar(string str, char ch){
     return strs;
 }
 
-/*data function*/
-
-string intToString(int num){
-    string str = malloc(1);
-    memset(str, 0, sizeof(char));
-    int len = 0;
-    if(num == 0){
-        return "0";
-    }
-    while (num){
-        str[len] = (num % 10) + '0';
-        num /= 10;
-        len++;
-        str = realloc(str,len+1);
-    }
-    return stringFlip(str);
-}
-
-int stringToInt(string str){
-    bool is_f = 0;
-    int num = 0;
-    for(int i = 0; i < strlen(str); i++){
-        if((str[i] < '0' || str[i] > '9') && str[i] != '-'){
-            return 0;
-        }else if(str[i] == '-' && i != 0){
-            return 0;
-        }else if(str[i] == '-' && i == 0){
-            is_f = true;
-        }else{
-            num = num * 10 + (str[i] - '0');
-        }
-    }
-    if(is_f){
-        return -1*num;
-    }else{
-        return num;
-    }
-}
-
 string Replace(string str, char ch1, char ch2){
     string strs = malloc(strlen(str)); memset(strs, 0, strlen(str)+1);
     for (size_t i = 0; i < strlen(str); i++) {
@@ -474,50 +435,4 @@ string Replace(string str, char ch1, char ch2){
     }
     strs[strlen(str)] = '\0';
     return strs;
-}
-
-/*file function*/
-
-FILE *openfile(const char *filename, char *mode) {
-    return fopen(filename, mode);
-}
-
-char *readfile(FILE *file, ull len){
-    char *string = (char *)malloc(len+1);
-    memset(string, 0, len+1);
-    fread(string, len, 1, file);
-    string[len] = '\0';
-    return string;
-}
-
-void closefile(FILE *file) {
-    fflush(file);
-    fclose(file);
-}
-
-void writetofile(FILE *file, char *str) {
-    fputs(str, file);
-}
-
-void writeline(FILE *file, char *str) {
-    fputs(str, file);
-    fputs("\n", file);
-}
-
-ull fileSize(FILE *file) {
-    ull size = 0;
-    fseek(file, 0, SEEK_END);
-    size = ftell(file);
-    fseek(file, 0, SEEK_SET);
-    return size;
-}
-
-void language() {
-    SetConsoleOutputCP(65001) ;
-}
-
-void gotoxy(int x, int y) {
-	COORD pos = {x,y};
-	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);// 获取标准输出设备句柄
-	SetConsoleCursorPosition(hOut, pos);//两个参数分别是指定哪个窗体，具体位置
 }

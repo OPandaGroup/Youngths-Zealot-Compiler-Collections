@@ -11,11 +11,12 @@
 #define Debug(...) printf(__VA_ARGS__)
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/function.h"
+#include "../include/PString.h"
+#include "../include/PDataTypeConversion.h"
 
 typedef unsigned long long ull;
 typedef char * string;
-typedef _Bool bool;
+typedef _Bool bool; 
 
 //data structure
 /*The code that follows is the stack definition, 

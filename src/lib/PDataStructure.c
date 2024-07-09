@@ -1,4 +1,4 @@
-#include "../include/structure.h"
+#include "../include/PDataStructure.h"
 
 //function of stack
 struct stack *new_stack(){
