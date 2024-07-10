@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../include/PDataStructure.h"
 
 typedef size_t ull;
 typedef char * string;
@@ -13,5 +14,6 @@ string readfile(FILE *file, ull len);
 void closefile(FILE *file);
 void writetofile(FILE *file, char *str);
 ull fileSize(FILE *file);
+tree *openXML(char *filename);
 
 #endif 

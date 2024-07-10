@@ -33,3 +33,8 @@ ull fileSize(FILE *file) {
     fseek(file, 0, SEEK_SET);
     return size;
 }
+
+tree *openXML(char *filename){
+    FILE *fp = openfile(filename, "r");
+    return get_tree_from_XML(readfile(fp, fileSize(fp))) ;
+}

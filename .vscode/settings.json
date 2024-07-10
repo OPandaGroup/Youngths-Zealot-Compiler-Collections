@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "pfile.h": "c"
+        "pfile.h": "c",
+        "windows.h": "c",
+        "stdio.h": "c",
+        "pwindows.h": "c"
     }
 }

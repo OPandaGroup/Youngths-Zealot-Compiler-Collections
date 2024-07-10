@@ -15,7 +15,7 @@ del /q ..\build\lib
 del /q ..\build\bin
 echo 删除编译日志
 gcc -shared -fpic ..\build\src\lib\Pprint.c -o ..\build\lib\Pprint.so
-echo [%time%]:编译Pprint完成 >> build.log
+echo [%time%]:编译Pprint完成 >> build.logP
 gcc -shared -fpic ..\build\src\lib\PString.c -o ..\build\lib\PString.so
 echo [%time%]:编译PString完成 >> build.log
 gcc -shared -fpic ..\build\src\lib\PFile.c -o ..\build\lib\PFile.so
