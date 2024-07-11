@@ -1,4 +1,13 @@
 # Youngths' Zealot Compiler Collections
+## 分支
+### main
+    主分支,包含最新代码,但是,可能存在bug
+### release
+    发布分支,包含最新release版本,但是,可能存在bug
+### C
+    用c写的代码
+### Rust
+    用Rust写的代码
 ## 目录
 
 ​	[语言](#语言)
