@@ -42,13 +42,17 @@
 
 ​		**这个项目是多种语言的编译器**
 
-### 	成员(当前分支)
+### 	成员
 
-#### 		主成员(负责决策)
+#### 		主成员(负责决策)：
+
+​			[写代码ing](https://github.com/21dyz21)
 
 ​			[Demolemon_](https://github.com/Demolemon11/)
 
 #### 			更多成员(负责写代码)
+
+​			[写代码ing](https://github.com/21dyz21)
 
 ​			[Demolemon_](https://github.com/Demolemon11/)
 
@@ -58,7 +62,7 @@
 
 ### 技术介绍
 
-​	初期版本是使用Rust官方编译器编译， 后面会尝试替换成Multilanguage compile
+​	初期版本是使用gcc，Rust官方编译器编译， 后面会尝试替换成Multilanguage compile
 
 ## 使用
 
@@ -94,3 +98,9 @@
 ### 更新须知
 
 ​	更新后，您需要写change文件，还需要给我们反馈，具体反馈内容和change文件一样
+
+​	
+
+
+
+​	
