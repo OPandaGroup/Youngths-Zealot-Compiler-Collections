@@ -1,3 +1,19 @@
-<project name="test.c" default="build" basedir=".">
-
+<project name='test.c' default='build'>
+    <symbol>
+        <int name='a' scope='global' value='1'></int>
+        <char name = 'b' scope='global' value='a'></char>
+    </symbol>
+    <text>
+        <fun name = 'test' args='' return = 'int'>
+            <return> "0"</return>
+        </fun> 
+        <fun name='main' args='' return = 'int'>
+            <int name='a' scope='local' value='1'></int>
+            <char name = 'b' scope = 'local' value = 'a'></char>
+            <call name='test' args=''></call>
+            <set name='a' value='1'></set>
+            <call name='printf'    args='{string:"%d",int:a}'></call>
+            <return fun='main'> 0</return>
+        </fun>
+    </text>
 </project>

@@ -1,17 +1,24 @@
-// 
-// stucture.h
-// time: 2024年6月22日
-// Copyright (c) 写代码ing. All rights reserved.
+//
+// @date:2024/07/16
+// @file:PDataStructure.h
+// @author:Writing 
+// @copyright: Panda, 2024
 //
 
 #ifndef STUCTURE_H
 #define STUCTURE_H
 
 #define None "None"
+#define endl printf("\n")
 #define Debug(...) printf(__VA_ARGS__)
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdarg.h>
+#include "../include/PFile.h"
 #include "../include/PString.h"
+#include "../include/PDebug.h"
+#include "../include/Pprint.h"
+#include "../include/PSystem.h"
 #include "../include/PDataTypeConversion.h"
 
 typedef unsigned long long ull;
@@ -33,7 +40,7 @@ struct stack_node{
     struct stack_node *last;
 };
 /*function definition of stack*/
-struct stack *new_stack();
+struct stack *Stack();
 void push_stack(struct stack *stack, string data);
 void add_stack_data(struct stack *stack, void *data); //默认给栈顶添加数据
 void pop_stack(struct stack *stack);
@@ -51,10 +58,11 @@ struct list_node{
     struct list_node *last;
 };
 /*function definition of list*/
-struct list *new_list();
+struct list *List();
 struct list *split(string str, char delimiter);
 struct list_node *get_list_node(struct list *list, int index);
 void append_list(struct list *list, string data);
+void append_list_plus(struct list *list, string data) ;//添加数据,主要针对一些特殊字符处理,例如:"", "None", "(null)"就不允许被添加进list
 void remove_list(struct list *list, int index);
 void print_list(struct list *list);
 
@@ -70,7 +78,7 @@ struct dirt_node{
     struct dirt_node *last;
 };
 /*function definition of dirt*/
-struct dirt *new_dirt();
+struct dirt *Dirt();
 void append_dirt(struct dirt *dirt, string key, string value);
 void remove_dirt_key(struct dirt *dirt, string key);
 bool find_dirt_key(struct dirt *dirt, string key);
@@ -88,7 +96,7 @@ typedef struct tree{
     string key;
 }tree;
 /*function definition of tree*/
-struct tree *new_tree(string data, string key, struct tree *parent);
+struct tree *Tree(string data, string key, struct tree *parent);
 void append_tree(struct tree *tree, string data, string key);
 void print_tree(struct tree *tree, int level);
 void add_tree_data(struct tree *tree, void *data);
@@ -102,7 +110,8 @@ typedef struct resources{
     int len;
     void **data;
 }resources;
-resources *new_resources();
+resources *Resources();
 void append_resources(resources *resources, void *data);
 void remove_resources(resources *resources, int index);
-#endif
+void *get_resources(resources *resources, int index);
+#endif 

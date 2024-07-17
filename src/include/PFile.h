@@ -1,3 +1,9 @@
+//
+// @date:2024/07/16
+// @file:PFile.h
+// @author:Writing 
+// @copyright: Panda, 2024
+//
 #ifndef _PFile_H_
 #define _PFile_H_
 
@@ -14,6 +20,5 @@ string readfile(FILE *file, ull len);
 void closefile(FILE *file);
 void writetofile(FILE *file, char *str);
 ull fileSize(FILE *file);
-tree *openXML(char *filename);
 
 #endif 

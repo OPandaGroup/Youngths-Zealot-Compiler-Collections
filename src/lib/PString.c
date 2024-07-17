@@ -1,3 +1,9 @@
+//
+// @date:2024/07/16
+// @file:PString.c
+// @author:Writing 
+// @copyright: Panda, 2024
+//
 #include "../include/PString.h"
 
 /*string function*/
@@ -108,6 +114,7 @@ string stringFlip(string str){
     for(int i = 0;i < strlen(str) ; i++){
         strs[i] = str[strlen(str)-1-i];
     }
+    strs[strlen(str)] = '\0';
     return strs;
 }
 
@@ -139,22 +146,21 @@ string Nicts(string str, ull index, char stop) {
     int len = 0;
     bool is_str = false, is_str_md = false; // md为双引号
     for(int i = index ; i < strlen(str) ; i++){
-        if (str[i] == stop){
-            strs[len] = '\0';
+        if (str[i] == stop && !is_str_md && !is_str){
+            break;
         }else if (str[i] == '"' && !is_str){
             is_str_md = !is_str_md;
-            strs[++len] = str[i];
-        }else if (str[i] == 39 && !is_str_md){
+            // strs[len++] = str[i];
+        }else if (str[i] == '\'' && !is_str_md){
             is_str = !is_str;
-            strs[++len] = str[i];
+            // strs[len++] = str[i];
         }else if ((str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\r') && !is_str && !is_str_md){
             continue;
-        }else{
-            strs[++len] = str[i];
         }
+        strs[len++] = str[i];
     }
-    strs[len] = '\0';
     strs = realloc(strs,strlen(strs)+1);
+    strs[len] = '\0';
     return strs;
 }
 

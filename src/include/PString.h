@@ -1,3 +1,9 @@
+//
+// @date:2024/07/16
+// @file:PString.h
+// @author:Writing 
+// @copyright: Panda, 2024
+//
 #ifndef _PSing_H
 #define _PSing_H
 

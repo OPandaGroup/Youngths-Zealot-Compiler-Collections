@@ -1,3 +1,9 @@
+//
+// @date:2024/07/16
+// @file:Pprint.c
+// @author:Writing 
+// @copyright: Panda, 2024
+//
 #include "../include/Pprint.h"
 
 void printError(char *sender, char *error, char *situation){

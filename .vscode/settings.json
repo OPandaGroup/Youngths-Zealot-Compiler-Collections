@@ -3,6 +3,24 @@
         "pfile.h": "c",
         "windows.h": "c",
         "stdio.h": "c",
-        "pwindows.h": "c"
+        "pwindows.h": "c",
+        "stdarg.h": "c",
+        "pdatastructure.h": "c",
+        "pdebug.h": "c",
+        "stdlib.h": "c",
+        "*.dlg": "c",
+        "xlocinfo": "c",
+        "xstring": "c",
+        "pstring.h": "c",
+        "format": "c",
+        "system_error": "c",
+        "xiosbase": "cpp",
+        "xlocale": "cpp",
+        "xutility": "cpp",
+        "plinux.h": "c",
+        "psystem.h": "c",
+        "pprint.h": "c",
+        "pdatatypeconversion.h": "c",
+        "vector": "c"
     }
 }

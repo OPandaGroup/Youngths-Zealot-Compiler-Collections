@@ -1,3 +1,9 @@
+//
+// @date:2024/07/16
+// @file:PWindows.h
+// @author:Writing 
+// @copyright: Panda, 2024
+//
 #ifndef __Windows_Panda__ //windows攀达扩展库
 #define __Windows_Panda__
 

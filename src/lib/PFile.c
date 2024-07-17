@@ -1,3 +1,9 @@
+//
+// @date:2024/07/16
+// @file:PFile.c
+// @author:Writing 
+// @copyright: Panda, 2024
+//
 #include "../include/PFile.h"
 
 FILE *openfile(const char *filename, char *mode) {
@@ -32,9 +38,4 @@ ull fileSize(FILE *file) {
     size = ftell(file);
     fseek(file, 0, SEEK_SET);
     return size;
-}
-
-tree *openXML(char *filename){
-    FILE *fp = openfile(filename, "r");
-    return get_tree_from_XML(readfile(fp, fileSize(fp))) ;
 }

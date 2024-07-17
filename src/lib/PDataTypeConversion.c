@@ -1,3 +1,9 @@
+//
+// @date:2024/07/16
+// @file:PDataTypeConversion.c
+// @author:Writing 
+// @copyright: Panda, 2024
+//
 #include "../include/PDataTypeConversion.h"
 
 string intToString(int num){
@@ -13,7 +19,9 @@ string intToString(int num){
         len++;
         str = realloc(str,len+1);
     }
+    str[len] = '\0';
     return stringFlip(str);
+    // return stringFlip(str);
 }
 
 int stringToInt(string str){
