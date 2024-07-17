@@ -459,7 +459,8 @@ tree *get_tree_from_XML(string XML){
             break;
         }
     }
-    print_DebugFileLine("for", 1);
+    // print_DebugFileLine("for", 1);
+    printf("Debug%d", len) ;
     //第二次预处理 完成对无效字符和字符串的过滤
     idx = 0; int markers = dirts->len;
     for(int i = 0;i < len - 1; i++){
