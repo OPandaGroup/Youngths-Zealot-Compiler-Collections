@@ -1,9 +1,8 @@
 -----------Panda Debug-----------
 switch
-for
 end
 {
-	"6":""0"",
+	"6":"'</return>        </fun>         <fun name='main' args='' return = 'int'>            <int name='a' scope='local' value='1'></int>            <char name = 'b' scope = 'local' value = 'a'></char>            <call name='test' args=''></call>            <set name='a' value='1'></set>            <call name='printf'    args='{string:,int:a}'></call>            <return fun='main'> 0</return>        </fun>    </text></project>",
 	"13":"0",
 	"$0":" name='test.c' default='build'",
 	"$2":" name='a' scope='global' value='1'",
@@ -14,7 +13,7 @@ end
 	"$9":" name = 'b' scope = 'local' value = 'a'",
 	"$10":" name='test' args=''",
 	"$11":" name='a' value='1'",
-	"$12":" name='printf'    args='{string:"%d",int:a}'",
+	"$12":" name='printf'    args='{string:,int:a}'",
 	"$13":" fun='main'"
 }
  name='test.c' default='build'
@@ -26,5 +25,5 @@ end
  name = 'b' scope = 'local' value = 'a'
  name='test' args=''
  name='a' value='1'
- name='printf'    args='{string:"%d",int:a}'
+ name='printf'    args='{string:,int:a}'
  fun='main'

@@ -168,10 +168,11 @@ void print_list(struct list *list){
     struct list_node *node = list->head;
     printf("[");
     while (node!=NULL){
-        printf("%s,",node->data);
+        if(node->data != NULL)
+            printf("%s,",strappend(node->data, "\0"));
         node = node->next;
     }
-    printf("\b]");
+    printf("]");
 }
 
 //function of dirt
